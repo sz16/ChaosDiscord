@@ -15,14 +15,12 @@ def setup_task(bot: commands.Bot):
     log.info("Setup task")
     @tasks.loop(minutes=1)
     async def checkVoice():
-        log.info("Start check voice")
         server = bot.get_guild(serverID)
         if not server:
             log.error("Server not found")
             return
         activeUsers = set()
         knownName = []
-        log.debug("Check voice channel")
         for channel in server.voice_channels:
             for member in channel.members:
                 activeUsers.add(str(member.id))
@@ -46,10 +44,10 @@ def setup_task(bot: commands.Bot):
         tz_vn = ZoneInfo("Asia/Ho_Chi_Minh")
         now_vn = datetime.now(tz_vn)
         
-        if now_vn.hour != 19 and now_vn.day != 28:
-            log.debug("This is not 7pm and 30th, stop auto check")
+        if now_vn.hour != 19 or now_vn.day != 28:
+            log.debug("This is not 7pm and 28th, stop auto check")
             return
-        
+        log.debug("Start auto warn user")
         server = bot.get_guild(serverID)
         if not server:
             log.error("Server not found")
@@ -59,9 +57,10 @@ def setup_task(bot: commands.Bot):
         for id, user in allUser.items():
             lastReactDelta = (datetime.now() - datetime.strptime(user["TIMELINE"]["LAST_REACT"], "%Y-%m-%d")).days
             lastRemindDelta = (datetime.now() - datetime.strptime(user["TIMELINE"]["LAST_REMINDED"], "%Y-%m-%d")).days
+            unactive = user["ACTION"]["VOICE_TIME"] == 0 and user["ACTION"]["MESSAGE"] == 0 and user["ACTION"]["REACTION"] == 0
             if lastReactDelta >= warnInteval:
                 if lastRemindDelta !=0:
-                    needWarn.append((lastReactDelta, id))
+                    needWarn.append((lastReactDelta, id, unactive))
         needWarn.sort(key = lambda x: x[0])
         if len(needWarn) == 0:
             log.debug("No need to warn")
@@ -75,8 +74,8 @@ def setup_task(bot: commands.Bot):
             return
         warnMessage = 'Dựa theo ghi chép của bot, chúng tôi nhận thấy các thành viên trong server đã không online trong thời gian dài'
         await channelbot.send(warnMessage)
-        for day, id in needWarn:
-            await channelbot.send(f"<@{id}>: {day} ngày")
+        for day, id, unactive in needWarn:
+            await channelbot.send(f"<@{id}>: {day} ngày và không hề có hoạt động nào được ghi nhận từ lúc vào server.")
     
     checkVoice.start()
     checkUser.start()
