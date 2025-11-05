@@ -1,0 +1,24 @@
+2025-11-04 07:45:15 [DEBUG] urllib3.util.retry: Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2025-11-04 07:45:15 [DEBUG] google.auth.transport.requests: Making request: POST https://oauth2.googleapis.com/token
+2025-11-04 07:45:15 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2025-11-04 07:45:15 [DEBUG] urllib3.connectionpool: https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+2025-11-04 07:45:15 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): chaosmax-discorddata-1-default-rtdb.asia-southeast1.firebasedatabase.app:443
+2025-11-04 07:45:15 [DEBUG] urllib3.connectionpool: https://chaosmax-discorddata-1-default-rtdb.asia-southeast1.firebasedatabase.app:443 "PUT /.json?print=silent HTTP/1.1" 204 0
+2025-11-04 07:55:42 [DEBUG] urllib3.util.retry: Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2025-11-04 07:55:42 [DEBUG] google.auth.transport.requests: Making request: POST https://oauth2.googleapis.com/token
+2025-11-04 07:55:42 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2025-11-04 07:55:42 [DEBUG] urllib3.connectionpool: https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+2025-11-04 07:55:42 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): chaosmax-discorddata-1-default-rtdb.asia-southeast1.firebasedatabase.app:443
+2025-11-04 07:55:42 [DEBUG] urllib3.connectionpool: https://chaosmax-discorddata-1-default-rtdb.asia-southeast1.firebasedatabase.app:443 "GET /.json HTTP/1.1" 200 14
+2025-11-04 07:56:13 [DEBUG] urllib3.util.retry: Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2025-11-04 07:56:13 [DEBUG] google.auth.transport.requests: Making request: POST https://oauth2.googleapis.com/token
+2025-11-04 07:56:13 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2025-11-04 07:56:13 [DEBUG] urllib3.connectionpool: https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+2025-11-04 07:56:13 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): chaosmax-discorddata-1-default-rtdb.asia-southeast1.firebasedatabase.app:443
+2025-11-04 07:56:13 [DEBUG] urllib3.connectionpool: https://chaosmax-discorddata-1-default-rtdb.asia-southeast1.firebasedatabase.app:443 "PUT /.json?print=silent HTTP/1.1" 204 0
+2025-11-04 08:07:57 [DEBUG] urllib3.util.retry: Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2025-11-04 08:07:57 [DEBUG] google.auth.transport.requests: Making request: POST https://oauth2.googleapis.com/token
+2025-11-04 08:07:57 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2025-11-04 08:07:57 [DEBUG] urllib3.connectionpool: https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+2025-11-04 08:07:57 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): chaosmax-discorddata-1-default-rtdb.asia-southeast1.firebasedatabase.app:443
+2025-11-04 08:07:58 [DEBUG] urllib3.connectionpool: https://chaosmax-discorddata-1-default-rtdb.asia-southeast1.firebasedatabase.app:443 "GET /814859352044732427.json HTTP/1.1" 200 252

@@ -1,0 +1,3 @@
+2025-11-04 07:42:26 [ERROR] __main__: FIREBASE_KEY or DATABASE_URL is not set
+2025-11-04 07:43:08 [ERROR] __main__: DATABASE_URL not found in .env
+2025-11-04 07:44:59 [ERROR] __main__: DATABASE_URL not found in .env
