@@ -27,6 +27,10 @@ else:
     if not database_url:
         log.error("DATABASE_URL not found in .env")
     exit(1)
+    
+# --- Web service ---
+from utils import keep_alive
+keep_alive.keep_alive()
 
 # --- Import discord sau khi đã setup log ---
 import discord
