@@ -2,11 +2,12 @@ import discord
 from discord.ext import commands
 import logging
 
-from utils import *
+from utils import database
 
 log = logging.getLogger(__name__)
 BOT_CHANNEL = 1389554769634398299
 def setup_event(bot: commands.Bot):
+    log.info("Setup event")
     @bot.event
     async def on_ready():
         log.info("Bot is ready as %s", bot.user)
@@ -38,7 +39,7 @@ def setup_event(bot: commands.Bot):
         try:
             if message.author == bot.user:
                 return
-            if message.channel.id != BOT_CHANNEL:
+            if message.channel.id == BOT_CHANNEL:
                 return
             log.info("Message of %s: %s", message.author, message.content)
             database.addMessage(str(message.author.id))
@@ -46,7 +47,11 @@ def setup_event(bot: commands.Bot):
             log.error('Something wrong with on_message')
             log.error(e)
         finally:
-            await bot.process_commands(message)
+            try:
+                await bot.process_commands(message)
+            except Exception as e:
+                log.error('Something wrong with process_commands')
+                log.error(e)
     
     @bot.event
     async def on_reaction_add(reaction : discord.Reaction, user: discord.User):

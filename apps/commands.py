@@ -5,7 +5,7 @@ import os
 from . import DrawCard
 import logging
 import asyncio
-from utils import *
+from utils import database
 
 import re
 import string
@@ -32,6 +32,7 @@ load_dotenv()
 rc = DrawCard.RANKCARD()
 
 def setup_command(bot : commands.Bot):
+    log.info("Setup command")
     @bot.command()
     async def ping(ctx:commands.Context):
         #with ping ms
@@ -71,10 +72,13 @@ Bot hỗ trợ việc tự động lọc người dùng không online trong th�
                 return
             scoreboard = database.getScoreboard()
             line = 1
-            for id in scoreboard:
-                if id == str(member.id):
+            for user in scoreboard:
+                if user[0] == str(member.id):
                     break
                 line += 1
+            else:
+                await ctx.send('Không tìm thấy người dùng nây')
+                return
             user = scoreboard[line-1][1]
             out_path = rc.rank_card(
                 username=member.name,
@@ -88,12 +92,12 @@ Bot hỗ trợ việc tự động lọc người dùng không online trong th�
             )
             await ctx.send(file=discord.File(out_path))
     
-    @rank.error
-    async def rank_error(ctx:commands.Context, error):
-        if isinstance(error, commands.BadArgument):
-            await ctx.send('Không tìm thấy người dùng nây')
-        else:
-            await ctx.send('Có lỗi xảy ra. Vui lòng gọi ChaosMAX_ để khứa giải quyết')
+    # @rank.error
+    # async def rank_error(ctx:commands.Context, error):
+    #     if isinstance(error, commands.BadArgument):
+    #         await ctx.send('Không tìm thấy người dùng nây')
+    #     else:
+    #         await ctx.send('Có lỗi xảy ra. Vui lòng gọi ChaosMAX_ để khứa giải quyết')
         
     # @bot.command()
     # async def scoreboard(ctx:commands.Context):

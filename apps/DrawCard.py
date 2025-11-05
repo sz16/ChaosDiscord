@@ -3,6 +3,8 @@ import requests
 import os
 from PIL import Image, ImageFont, ImageOps, ImageDraw
 from io import BytesIO
+import logging
+log = logging.getLogger(__name__)
 
 class RANKCARD:
     def rank_card(self, username, avatar, level, rank, current_xp, custom_background, xp_color, next_level_xp):
@@ -52,6 +54,7 @@ class RANKCARD:
 
         out_path = os.path.join(output_dir, "out.jpg")
         img.save(out_path)
+        log.info("Image saved to %s", out_path)
         return out_path
     
     def drawProgressBar(self, d, x, y, w, h, progress, bg="black", fg="red"):

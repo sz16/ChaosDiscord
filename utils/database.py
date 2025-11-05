@@ -73,7 +73,7 @@ def updateName(id: str, name: str, display_name: str):
     updateUser(id, user)
 
 def addExp(id: str, userdata: UserData, amount, needUpdate: bool = True):
-    userlvl = userdata[id]["LVL"]
+    userlvl = userdata["LVL"]
     userlvl["EXP"] += amount
     if userlvl["EXP"] < 0:
         userlvl["EXP"] = 0
@@ -84,8 +84,8 @@ def addExp(id: str, userdata: UserData, amount, needUpdate: bool = True):
         userlvl["LEVEL"] += 1
         userlvl["LEVEL_EXP"] += incExp
     
-    userdata[id]["TIMELINE"]["LAST_REACT"] = datetime.now().strftime("%Y-%m-%d")
-    userdata[id]["TIMELINE"]["LAST_REMINDED"] = datetime.now().strftime("%Y-%m-%d")
+    userdata["TIMELINE"]["LAST_REACT"] = datetime.now().strftime("%Y-%m-%d")
+    userdata["TIMELINE"]["LAST_REMINDED"] = datetime.now().strftime("%Y-%m-%d")
 
     if needUpdate:
         updateUser(id, userdata)    

@@ -4,7 +4,6 @@ from utils import database
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-
 import logging
 log = logging.getLogger(__name__)
 
@@ -13,17 +12,22 @@ serverID = 760008091827306498
 
 warnInteval = 25 #days
 def setup_task(bot: commands.Bot):
+    log.info("Setup task")
     @tasks.loop(minutes=1)
     async def checkVoice():
+        log.info("Start check voice")
         server = bot.get_guild(serverID)
         if not server:
             log.error("Server not found")
             return
         activeUsers = set()
+        knownName = []
+        log.debug("Check voice channel")
         for channel in server.voice_channels:
             for member in channel.members:
-                activeUsers.add(member.id)
-
+                activeUsers.add(str(member.id))
+                knownName.append(member.name)
+        log.debug("Active users: %s", list(knownName))
         database.addVoice(list(activeUsers))
     
     @tasks.loop(minutes=10)
@@ -34,7 +38,7 @@ def setup_task(bot: commands.Bot):
             return
         serverMember = []
         for member in server.members:
-            serverMember.append((member.id, member.name, member.display_name))
+            serverMember.append((str(member.id), member.name, member.display_name))
         database.verifyDatabase(serverMember)
     
     @tasks.loop(minutes=30)
@@ -71,6 +75,9 @@ def setup_task(bot: commands.Bot):
             return
         warnMessage = 'Dựa theo ghi chép của bot, chúng tôi nhận thấy các thành viên trong server đã không online trong thời gian dài'
         await channelbot.send(warnMessage)
-        old = needWarn[0][0]
         for day, id in needWarn:
-            await channelbot.send(f"<{id}>: {day} ngày")
+            await channelbot.send(f"<@{id}>: {day} ngày")
+    
+    checkVoice.start()
+    checkUser.start()
+    warnUser.start()

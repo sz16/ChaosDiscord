@@ -46,7 +46,7 @@ if not TOKEN:
     log.error("DISCORD_TOKEN not found in .env")
     exit(1)
 
-bot = commands.Bot(command_prefix='!', intents=intents)
+bot = commands.Bot(command_prefix='c!', intents=intents, help_command=None)
 # --- Setup event and commands
 from apps import events, commands, tasks
 events.setup_event(bot)
@@ -56,5 +56,5 @@ commands.setup_command(bot)
 async def on_ready():
     log.info("Bot is ready as %s", bot.user)
     tasks.setup_task(bot)
-    
+
 bot.run(TOKEN)
