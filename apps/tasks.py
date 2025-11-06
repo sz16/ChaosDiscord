@@ -74,8 +74,11 @@ def setup_task(bot: commands.Bot):
             return
         warnMessage = 'Dựa theo ghi chép của bot, chúng tôi nhận thấy các thành viên trong server đã không online trong thời gian dài'
         await channelbot.send(warnMessage)
+        warned = []
         for day, id, unactive in needWarn:
             await channelbot.send(f"<@{id}>: {day} ngày và không hề có hoạt động nào được ghi nhận từ lúc vào server.")
+            warned.append(id)
+        database.addWarns(warned)
     
     checkVoice.start()
     checkUser.start()

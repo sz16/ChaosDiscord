@@ -110,7 +110,7 @@ def addVoice(ids: list[str]):
         batch[id] = user
     batchUpdate(batch)
 
-def getWarn(ids):
+def addWarns(ids):
     batch: DataJson = {}
     database = getDatabase()
     for id in ids:
