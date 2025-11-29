@@ -4,6 +4,7 @@ import os
 import json
 import base64
 import random
+from datetime import datetime
 from hashlib import sha256
 
 import logging
@@ -18,7 +19,9 @@ debug_path = 'debug.log'
 
 @app.route('/')
 def index():
-    return "Alive"
+    # Get today's date
+    today = datetime.now().strftime('%Y-%m-%d %H:%M')
+    return f"Alive at {today}"
 
 @app.route('/data')
 def send_data():

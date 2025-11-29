@@ -101,6 +101,7 @@ def addReaction(id: str):
     addExp(id, user, reactionExp)
     
 def addVoice(ids: list[str]):
+    if len(ids) == 0: return
     batch: DataJson = {}
     database = getDatabase()
     for id in ids:
