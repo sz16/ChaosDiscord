@@ -27,6 +27,7 @@ def index():
 def send_data():
     try:
         data = database.getDatabase()
+        data = json.dumps(data, indent=4, ensure_ascii=False)
         return Response(data, mimetype='application/json')
     except Exception as e:
         return jsonify({"error": str(e)}), 500

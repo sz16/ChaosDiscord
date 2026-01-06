@@ -36,7 +36,7 @@ def setup_task(bot: commands.Bot):
             return
         serverMember = []
         for member in server.members:
-            if member.bot:
+            if not member.bot:
                 serverMember.append((str(member.id), member.name, member.display_name))
         database.verifyDatabase(serverMember)
     
@@ -64,6 +64,7 @@ def setup_task(bot: commands.Bot):
             if lastReactDelta >= warnInteval:
                 if lastRemindDelta !=0:
                     needWarn.append((lastReactDelta, id, unactive))
+                    
         needWarn.sort(key = lambda x: x[0])
         if len(needWarn) == 0:
             log.debug("No need to warn")
