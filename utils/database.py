@@ -23,6 +23,7 @@ def _NewUser(name: str, display_name: str) -> UserData:
             "FIRST_UPDATE": datetime.now().strftime("%Y-%m-%d"),
             "LAST_REACT": datetime.now().strftime("%Y-%m-%d"),
             "LAST_REMINDED": datetime.now().strftime("%Y-%m-%d"),
+            "WARN_MODE": True,
         },
         "ACTION": {
             "MESSAGE": 0,
@@ -45,6 +46,7 @@ def getDatabase() -> DataJson:
     return cast(DataJson, ref.get())
 
 def getUser(id: str) -> UserData:
+    id = str(id)
     user = ref.child(id).get()
     if user is None:
         log.info(f"User {id} not found")
@@ -145,3 +147,9 @@ def getScoreboard():
     database = getDatabase()
     board = sorted(database.items(), key=lambda x: x[1]["LVL"]["TOTAL_EXP"], reverse=True)
     return board
+
+def ignoreWarn(id:str) -> bool:
+    user = getUser(id)
+    user["TIMELINE"]["WARN_MODE"] = not user["TIMELINE"]["WARN_MODE"]
+    updateUser(id, user)
+    return user["TIMELINE"]["WARN_MODE"]

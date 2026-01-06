@@ -92,6 +92,18 @@ Bot hỗ trợ việc tự động lọc người dùng không online trong th�
             )
             await ctx.send(file=discord.File(out_path))
     
+    async def ignore(ctx:commands.Context, target = None):
+        if target is None:
+            member: discord.User = ctx.author #type:ignore
+        else:
+            member: discord.User = target #type:ignore
+            
+        mode = database.ignoreWarn(str(member.id))
+        if mode:
+            await ctx.send(f"Bot sẽ nhắc nhở người dùng <@{member.id}>")
+        else:
+            await ctx.send(f"Bot sẽ dừng nhắc nhở người dùng <@{member.id}>")
+    
     # @rank.error
     # async def rank_error(ctx:commands.Context, error):
     #     if isinstance(error, commands.BadArgument):
@@ -169,5 +181,5 @@ Bot hỗ trợ việc tự động lọc người dùng không online trong th�
     
     @bot.command()
     async def kick(ctx:commands.Context, user:discord.User):
-        await ctx.send(f"Thg ChaosMAX_ nó lười thêm lệnh kick. :))")
+        await ctx.send(f"Thg ChaosMAX_ nó lười thêm lệnh kick. :)\nĐùa thôi chứ tại Tawa có cho cấp quyền admin chó đâu.)")
         

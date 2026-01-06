@@ -5,6 +5,7 @@ class TimelineDict(TypedDict):
     FIRST_UPDATE: str
     LAST_REACT: str
     LAST_REMINDED: str
+    WARN_MODE:bool
 
 class ActionDict(TypedDict):
     MESSAGE: int       # số tin nhắn

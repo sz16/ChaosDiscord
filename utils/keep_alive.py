@@ -25,11 +25,11 @@ def index():
 
 @app.route('/data')
 def send_data():
-    if os.path.exists(data_path):
+    try:
         data = database.getDatabase()
         return Response(data, mimetype='application/json')
-    else:
-        return jsonify({"error": "Log file not found"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/debug')
 def send_debug():
@@ -53,6 +53,7 @@ def send_log():
 @app.route('/edit', methods=['GET'])
 def edit_logs():
     data = database.getDatabase()
+    data = json.dumps(data, indent=4, ensure_ascii=False)
     html = f"""
     <h2>Edit data.json</h2>
     <form action="/update_logs" method="post">

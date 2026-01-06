@@ -36,7 +36,8 @@ def setup_task(bot: commands.Bot):
             return
         serverMember = []
         for member in server.members:
-            serverMember.append((str(member.id), member.name, member.display_name))
+            if member.bot:
+                serverMember.append((str(member.id), member.name, member.display_name))
         database.verifyDatabase(serverMember)
     
     @tasks.loop(minutes=30)
@@ -58,6 +59,8 @@ def setup_task(bot: commands.Bot):
             lastReactDelta = (datetime.now() - datetime.strptime(user["TIMELINE"]["LAST_REACT"], "%Y-%m-%d")).days
             lastRemindDelta = (datetime.now() - datetime.strptime(user["TIMELINE"]["LAST_REMINDED"], "%Y-%m-%d")).days
             unactive = user["ACTION"]["VOICE_TIME"] == 0 and user["ACTION"]["MESSAGE"] == 0 and user["ACTION"]["REACTION"] == 0
+            if user['TIMELINE'].get("WARN_MODE",True) == False:
+                continue
             if lastReactDelta >= warnInteval:
                 if lastRemindDelta !=0:
                     needWarn.append((lastReactDelta, id, unactive))
