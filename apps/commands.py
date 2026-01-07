@@ -93,7 +93,7 @@ Bot hỗ trợ việc tự động lọc người dùng không online trong th�
             await ctx.send(file=discord.File(out_path))
     
     @bot.command()
-    async def ignore(ctx:commands.Context, target = None):
+    async def ignore(ctx:commands.Context, target : discord.Member | None = None):
         if target is None:
             member: discord.User = ctx.author #type:ignore
         else:
