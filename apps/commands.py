@@ -92,17 +92,18 @@ Bot hỗ trợ việc tự động lọc người dùng không online trong th�
             )
             await ctx.send(file=discord.File(out_path))
     
+    @bot.command()
     async def ignore(ctx:commands.Context, target = None):
         if target is None:
             member: discord.User = ctx.author #type:ignore
         else:
             member: discord.User = target #type:ignore
-            
         mode = database.ignoreWarn(str(member.id))
         if mode:
             await ctx.send(f"Bot sẽ nhắc nhở người dùng <@{member.id}>")
         else:
             await ctx.send(f"Bot sẽ dừng nhắc nhở người dùng <@{member.id}>")
+        log.info("Ignore called by " + ctx.author.name + " for " + member.name + " with mode " + str(mode))
     
     # @rank.error
     # async def rank_error(ctx:commands.Context, error):
